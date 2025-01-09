@@ -1,110 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Connect 4 Game</title>
+    <meta charset="UTF-8"> <!-- Specifies the character encoding for the document -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes the page responsive on mobile -->
+    <title>Mini Connect 4 Game</title> <!-- Title of the webpage that appears in the browser tab -->
+    
+    <!-- Linking external Google Fonts for styling the text -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Open+Sans:wght@600&display=swap" rel="stylesheet">
+    
     <style>
-        /* General Reset */
+        /* General Reset to remove default margin and padding across browsers */
         body, h1, div, button {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* Body styling */
         body {
-            font-family: 'Open Sans', sans-serif;
-            background: linear-gradient(135deg, #2b5876, #4e4376);
+            font-family: 'Open Sans', sans-serif; /* Applying Open Sans font */
+            background: linear-gradient(135deg, #2b5876, #4e4376); /* Gradient background */
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-direction: column; /* Arrange elements in a column */
+            align-items: center; /* Center align all elements horizontally */
             padding: 20px;
         }
 
+        /* Header styling */
         h1 {
-            font-family: 'Roboto', sans-serif;
-            font-size: 2.5em;
-            color: #fff;
-            margin-bottom: 20px;
+            font-family: 'Roboto', sans-serif; /* Applying Roboto font */
+            font-size: 2.5em; /* Set font size */
+            color: #fff; /* White color text */
+            margin-bottom: 20px; /* Spacing below the title */
         }
 
+        /* Container for the game elements */
         .game-container {
-            display: flex;
+            display: flex; /* Flexbox layout to arrange player indicators and board side by side */
             align-items: center;
-            gap: 20px;
+            gap: 20px; /* Space between elements */
             margin-bottom: 30px;
         }
 
+        /* Player indicator styling */
         .player-indicator {
-            font-size: 1.2em;
-            font-weight: bold;
-            text-align: center;
+            font-size: 1.2em; /* Set font size */
+            font-weight: bold; /* Make text bold */
+            text-align: center; /* Center align text */
             width: 150px;
-            background: #fff;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+            background: #fff; /* White background */
+            border-radius: 10px; /* Rounded corners */
+            padding: 15px; /* Padding inside the box */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            transition: all 0.3s ease; /* Smooth transition for color change */
         }
 
+        /* Active player indicator style (highlighting the current player's turn) */
         .player-indicator.active {
-            color: #fff;
-            background: linear-gradient(135deg, #ff8c00, #f77f00);
+            color: #fff; /* White text color */
+            background: linear-gradient(135deg, #ff8c00, #f77f00); /* Gradient background when active */
         }
 
+        /* Styling the game board grid */
         #board {
-            display: grid;
-            grid-template-rows: repeat(6, 70px);
-            grid-template-columns: repeat(7, 70px);
-            gap: 10px;
-            margin: 20px auto;
-            background-color: #0f3b3c;
-            border-radius: 10px;
-            padding: 10px;
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+            display: grid; /* Grid layout to arrange the cells */
+            grid-template-rows: repeat(6, 70px); /* 6 rows with 70px height */
+            grid-template-columns: repeat(7, 70px); /* 7 columns with 70px width */
+            gap: 10px; /* Space between cells */
+            margin: 20px auto; /* Center align the board and add margin */
+            background-color: #0f3b3c; /* Dark background color for the board */
+            border-radius: 10px; /* Rounded corners */
+            padding: 10px; /* Padding around the board */
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3); /* Shadow effect around the board */
         }
 
+        /* Styling each cell (board space) */
         .cell {
             width: 70px;
             height: 70px;
-            background-color: #ccc;
-            border: 2px solid #bbb;
-            border-radius: 50%;
-            cursor: pointer;
+            background-color: #ccc; /* Light gray background for empty cells */
+            border: 2px solid #bbb; /* Border color */
+            border-radius: 50%; /* Make the cell circular */
+            cursor: pointer; /* Change cursor to indicate clickable element */
         }
 
+        /* Player 1's piece (red color) */
         .player1 {
-            background-color: #f44336;
+            background-color: #f44336; /* Red color for Player 1 */
         }
 
+        /* Player 2's piece (yellow color) */
         .player2 {
-            background-color: #ffeb3b;
+            background-color: #ffeb3b; /* Yellow color for Player 2 */
         }
 
+        /* Styling for the reset button */
         button {
             padding: 10px 20px;
             font-size: 1.1em;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            background-color: #4CAF50; /* Green background for the button */
+            color: white; /* White text */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Change cursor to indicate button can be clicked */
         }
 
+        /* Hover effect for the reset button */
         button:hover {
-            background-color: #45a049;
+            background-color: #45a049; /* Slightly darker green on hover */
         }
     </style>
 </head>
 <body>
-    <h1>Connect 4 Game</h1>
+    <h1>Connect 4 Game</h1> <!-- Game title displayed on top -->
+
     <div class="game-container">
+        <!-- Player 1 indicator, showing Player 1’s turn and background highlight when active -->
         <div id="player1" class="player-indicator">Player 1<br>(Your Turn)</div>
+
+        <!-- The game board, represented as a grid of clickable cells -->
         <div id="board"></div>
+
+        <!-- Player 2 indicator, showing Player 2’s turn -->
         <div id="player2" class="player-indicator">Player 2</div>
     </div>
+
+    <!-- Button to reset the game when clicked -->
     <button onclick="resetGame()">Reset Game</button>
+
+    <!-- External JavaScript file that contains the game logic -->
     <script src="script.js"></script>
 </body>
 </html>
