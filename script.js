@@ -92,7 +92,7 @@ function checkWinner(row, col) {
             c += colStep; // Move to the next column (based on colStep)
         }
         return count;
-    }
+    } 
 
     // Check all four possible directions for a win (horizontal, vertical, and two diagonals)
     return (
