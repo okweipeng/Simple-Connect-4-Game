@@ -9,7 +9,7 @@ A simple built Connect 4 game built with HTML, CSS, and JavaScript. Players take
 - Winning and draw popup alerts
 
 ## How to Play
-1. Open `index.html` in your browser.
+1. Clone repo; Open `index.html` in your browser.
 2. Click on a column to drop your designated colored disc.
 3. The game alternates turns between Player 1 (Red) and Player 2 (Yellow).
 4. The game announces the winner or a draw.
